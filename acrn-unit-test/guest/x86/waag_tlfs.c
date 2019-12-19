@@ -98,7 +98,6 @@ static void setup_hypercall(void)
 	memset(hypercall_page, 0, PAGE_SIZE);
 
 	wrmsr(HV_X64_MSR_GUEST_OS_ID, guestid);
-
 	wrmsr(HV_X64_MSR_HYPERCALL,
 	      (u64)virt_to_phys(hypercall_page) | HV_X64_MSR_HYPERCALL_ENABLE);
 }
@@ -173,6 +172,7 @@ static void check_cpuid_range()
 	a = cpuid(0x40000000).a;
 	report("TC_TLFS_MinimalSet_002 check Hypervisor CPUID Leaf Range",	\
 		(a > 0x40000005)||(a == 0x40000005));
+	printf("cpuid0x40000000.a=0x%x\n\r",a);//someone else ask me add here.
 }
 static void check_hv_identity()
 {
@@ -191,6 +191,8 @@ static void check_hv_systemID()
 	report("TC_TLFS_MinimalSet_004 check check Hypervisor System Identity",	\
 		(cpuid401.a == 0) && (cpuid401.b == 0) \
 		&& (cpuid401.c == 0) && (cpuid401.d == 0));
+	printf("cpuid0x40000002.a=0x%x b=%x c=%x d=%x\n\r",	\
+		cpuid401.a,cpuid401.b,cpuid401.c,cpuid401.d);//someone else ask me add here.
 }
 static void check_hv_feature()
 {
@@ -208,6 +210,8 @@ static void check_hv_feature()
 	report("TC_TLFS_MinimalSet_005 check Hypervisor feature identification", \
 		(cpuid03.a == supported_hv) && (cpuid03.b == 0)	\
 		&& (cpuid03.c == 0 ) && (cpuid03.d == 0));
+	printf("cpuid0x40000003.a=0x%x b=%x c=%x d=%x\n\r",	\
+		cpuid03.a,cpuid03.b,cpuid03.c,cpuid03.d);//someone else ask me add here.
 }
 static void check_recommend_implement()
 {
@@ -218,6 +222,8 @@ static void check_recommend_implement()
 	report("TC_TLFS_MinimalSet_006 check Recommended Implementation", \
 		(cpuid04.a == 0) && (cpuid04.b == 0) \
 		&& (cpuid04.c == 0) && (cpuid04.d == 0));
+	printf("cpuid0x40000004.a=0x%x b=%x c=%x d=%x\n\r",	\
+		cpuid04.a,cpuid04.b,cpuid04.c,cpuid04.d);//someone else ask me add here.
 }
 static void check_implement_limit()
 {
@@ -230,6 +236,8 @@ static void check_implement_limit()
 	cpuid05 = cpuid(0x40000005);
 	report("TC_TLFS_MinimalSet_007 check Implementation limits", \
 		(cpuid05.a == 8) && (cpuid05.b == 0));
+	printf("cpuid0x40000005.a=0x%x b=%x\n\r",	\
+		cpuid05.a,cpuid05.b);//someone else ask me add here.
 }
 static void check_hw_feature()
 {
@@ -238,6 +246,7 @@ static void check_hw_feature()
 	*/
 	report("TC_TLFS_MinimalSet_008 check Implementation hardware features",	\
 		cpuid(0x40000006).a == 0);
+	printf("cpuid0x40000006.a=0x%x \n\r",cpuid(0x40000006).a);//someone else ask me add here.
 }
 static void x64_msr_gust_osid()
 {
