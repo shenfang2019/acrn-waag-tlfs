@@ -319,14 +319,20 @@ static void check_vp_index()
 	this will change in future, if we support more than one cpu,
 	we need rdmsr for each cpu*/
 	u64 vp_index;
+	unsigned char vector = 0;
 
 	vp_index = rdmsr(HV_X64_MSR_VP_INDEX);
 	report("TC_TLFS_MinimalSet_016 check HV_X64_MSR_VP_INDEX MSR", \
 		vp_index == 0);
 
-	wrmsr(HV_X64_MSR_VP_INDEX, vp_index + 1);
+	asm volatile(ASM_TRY("1f")
+		"wrmsr \n\t" "1:"
+		::"a"(vp_index+1),"d"(0),"c"(HV_X64_MSR_VP_INDEX):"memory");
+
+	vector = exception_vector();
+
 	report("TC_TLFS_MinimalSet_017 check wirting HV_X64_MSR_VP_INDEX", \
-		rdmsr(HV_X64_MSR_VP_INDEX) == vp_index);
+		vector == GP_VECTOR);
 }
 static void check_iTSC_support()
 {

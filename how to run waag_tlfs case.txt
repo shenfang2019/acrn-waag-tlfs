@@ -1,6 +1,6 @@
 Introduction 
 WaaG TLFS test cases are run under ACRN-UNIT-TEST framework.This repo is the source code of test cases.
-And, we have built a binary waag_tlfs.flat,this binary is the waag tlfs test cases. we can run this binary under SOS shell by using ./kvm-test.sh waag_tlfs.flat.
+And, we have built a binary waag_tlfs.flat,this binary is the waag tlfs test cases. we can run this binary under SOS shell by using ./waag.sh waag_tlfs.flat.
 if you change the source code, you need rebuild waag_tlfs.flat(pls refer to https://wiki.ith.intel.com/display/OTCCWPQA/%5BHypervisor%5D+How+to+run+ACRN-UNIT-TEST to how to build unit-test cases,and how to run unit-test case)
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Waag TLFS test case building step:<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -32,5 +32,5 @@ if the source code of guest/x86/waag_tlfs.c does not be modified, you can down l
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Waag TLFS test step:<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 1.Boot SOS (not boot other UOS)
-2.enter SOS system , upload ./kvm-test.sh file and waag_tlfs.flat file to SOS
-3.under SOS shell command: run ./kvm-test.sh waag_tlfs.flat (you will see the result on the screen)
+2.enter SOS system , upload ./waag.sh file and waag_tlfs.flat file to SOS
+3.under SOS shell command: run ./waag.sh waag_tlfs.flat (you will see the result on the screen)
